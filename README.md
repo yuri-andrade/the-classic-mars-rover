@@ -6,7 +6,7 @@ Assim, vamos implementar o Mars Rover, cujo enunciado está colocado no moodle. 
    * montar a equipe (3 integrantes);
    * projetar (em alto nível: idealizar as classes, papel da cada uma) a solução do problema;
    * configurar o git/github da seguinte forma: 
-       * acessar o link abaixo, onde você poderá configurar a sua equipe e criar o seu repositório do projeto;
+       * acessar o link abaixo, onde você poderá configurar a sua equipe (um dos membros da equipe cria o time, os demais se juntam ao tume) e criar o seu repositório do projeto;
        * cada membro da equipe vai clonar o repositório remoto do Github na sua máquina local;
        * a partir daí, cada membro da equipe trabalhará na sua branch (defina em equipe o nome de cada branch - não use o nome do desenvolvedor  :wink: );
        * uma vez implementados e testados (testes unitários. Se souber utilizar o JUnit, utilize-o) os seus componentes, deverá fazer merge com o ramo master;
