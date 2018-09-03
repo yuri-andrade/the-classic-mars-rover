@@ -1,8 +1,22 @@
 package br.pucrs.gcs;
 
+/**
+ *
+ */
 public class Rover {
-    private String posInicial;
     private String posFinal;
+    private int finalCordinateX;
+    private int finalCordinateY;
+    private String direction;
+
+    public Rover(String posInicial) {
+        String[] initialInput = posInicial.split("\\s+");
+        int initialCordinateX = Integer.parseInt(initialInput[0]);
+        int initialCordinateY = Integer.parseInt(initialInput[1]);
+        this.direction = initialInput[2];
+        this.finalCordinateY = initialCordinateY;
+        this.finalCordinateX = initialCordinateX;
+    }
 
     public String getPosFinal() {
         return posFinal;
@@ -12,86 +26,77 @@ public class Rover {
         this.posFinal = posFinal;
     }
 
-    public String getPosInicial() {
-        return posInicial;
-    }
-
-    public Rover(String posInicial) {
-        this.posInicial = posInicial;
-    }
-
     public String moveRover(String comando) {
         int index = 0;
-        String aux = "";
-        String[] compass = new String[4];
-        compass[0] = "N";
-        compass[1] = "E";
-        compass[2] = "S";
-        compass[3] = "W";
-        String[] coordinates = posInicial.split("\\s+");
-        int iniCordX = Integer.parseInt(coordinates[0]);
-        int iniCordY = Integer.parseInt(coordinates[1]);
-        String direction = coordinates[2];
-        if (direction.equals(compass[0])) {
-            direction = compass[0];
+
+        if (direction.equals(Compass.getInstance().getCompass()[0])) {
+            direction = Compass.getInstance().getCompass()[0];
             index = 0;
-        } else if (direction.equals(compass[1])) {
-            direction = compass[1];
+        } else if (direction.equals(Compass.getInstance().getCompass()[1])) {
+            direction = Compass.getInstance().getCompass()[1];
             index = 1;
-        } else if (direction.equals(compass[2])) {
-            direction = compass[2];
+        } else if (direction.equals(Compass.getInstance().getCompass()[2])) {
+            direction = Compass.getInstance().getCompass()[2];
             index = 2;
-        } else if (direction.equals(compass[3])) {
-            direction = compass[3];
+        } else if (direction.equals(Compass.getInstance().getCompass()[3])) {
+            direction = Compass.getInstance().getCompass()[3];
             index = 3;
         }
 
         for (int i = 0; i < comando.length(); i++) {
-            aux += comando.charAt(i);
-            if (aux.contentEquals("L")) {
-                if (index == 0) {
-                    direction = compass[3];
-                    index = 3;
-                } else {
-                    direction = compass[index - 1];
-                    index--;
-                }
-            }
-            if (aux.contentEquals("R")) {
-                if (index == 3) {
-                    direction = compass[0];
-                    index = 0;
-                } else {
-                    direction = compass[index + 1];
-                    index++;
-                }
-            }
-            if (aux.contentEquals("M")) {
+            String aux = String.valueOf(comando.charAt(i));
 
-                if (direction.equals("N")) {
-                    iniCordY++;
-                }
-                if (direction.equals("S")) {
-                    iniCordY--;
-                }
-                if (direction.equals("E")) {
-                    iniCordX++;
-                }
-                if (direction.equals("W")) {
-                    iniCordX--;
-                }
+            switch (aux) {
+                case "L":
+                    if (index == 0) {
+                        direction = Compass.getInstance().getCompass()[3];
+                        index = 3;
+                    } else {
+                        direction = Compass.getInstance().getCompass()[index - 1];
+                        index--;
+                    }
+                    break;
+                case "R":
+                    if (index == 3) {
+                        direction = Compass.getInstance().getCompass()[0];
+                        index = 0;
+                    } else {
+                        direction = Compass.getInstance().getCompass()[index + 1];
+                        index++;
+                    }
+                    break;
+                case "M":
+                    switch (direction) {
+                        case "N":
+                            finalCordinateY++;
+                            break;
+                        case "S":
+                            finalCordinateY--;
+                            break;
+                        case "E":
+                            finalCordinateX++;
+                            break;
+                        case "W":
+                            finalCordinateX--;
+                            break;
+                    }
 
+                    break;
             }
-            aux = "";
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(iniCordX);
-        sb.append(" ");
-        sb.append(iniCordY);
-        sb.append(" ");
-        sb.append(direction.toString());
-        setPosFinal(sb.toString());
+        defineFinalPosition();
+
         return posFinal;
+    }
+
+    private void defineFinalPosition() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(finalCordinateX);
+        sb.append(" ");
+        sb.append(finalCordinateY);
+        sb.append(" ");
+        sb.append(direction);
+        setPosFinal(sb.toString());
     }
 }
