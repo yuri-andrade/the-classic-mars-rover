@@ -2,7 +2,8 @@ package br.pucrs.gcs;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class RoverTest {
 
@@ -26,6 +27,5 @@ class RoverTest {
         Rover robertinho = new Rover("3 3 E");
         robertinho.moveRover("MMRMMRMRRM");
         assertEquals("5 1 E", robertinho.getPosFinal());
-
     }
 }
