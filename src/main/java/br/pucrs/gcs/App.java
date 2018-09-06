@@ -5,24 +5,33 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Classe Main do exercicio de gcs.
+ *
+ * @author <a href="mailto:yuri.arend@acad.pucrs.br">yuri.arend</a>
+ * @since 05/09/2018 22:27:00*
+ */
 public class App {
     static Scanner in = new Scanner(System.in);
+    static int roverNumber;
+    static String dimension;
+    static String inicial;
+    static int landedRovers;
+    static String mov;
 
     public static void main(String[] args) {
-        int landedRovers = 0;
-        String dimension;
         System.out.println("Insira as dimens�es: ");
         dimension = in.nextLine();
-        while (landedRovers < 2) {
+        System.out.println("Insira a quantidade de Rovers: ");
+        roverNumber = in.nextInt();
+        while (landedRovers < roverNumber) {
+            in.nextLine();
             System.out.println("Insira as cordenadas do rover: ");
-            String inicial = getInitialCoordinates(in.nextLine());
-
+            inicial = getInitialCoordinates(in.nextLine());
             Rover rover = new Rover(inicial);
-
             System.out.println("Informe linha do comando de movimenta��o para rover: ");
-            String mov = in.nextLine().toUpperCase();
+            mov = in.nextLine().toUpperCase();
             System.out.println(rover.moveRover(mov));
-
             landedRovers++;
         }
     }

@@ -1,21 +1,24 @@
 package br.pucrs.gcs;
 
 /**
+ * Classe de implementação de um Rover e sua locomoção pelo plateau.
  *
+ * @author <a href="mailto:yuri.arend@acad.pucrs.br">yuri.arend</a>
+ * @since 05/09/2018 22:31:00
  */
 public class Rover {
     private String posFinal;
-    private int finalCordinateX;
-    private int finalCordinateY;
+    private int finalCoordinateX;
+    private int finalCoordinateY;
     private String direction;
 
     public Rover(String posInicial) {
         String[] initialInput = posInicial.split("\\s+");
-        int initialCordinateX = Integer.parseInt(initialInput[0]);
-        int initialCordinateY = Integer.parseInt(initialInput[1]);
+        int initialCoordinateX = Integer.parseInt(initialInput[0]);
+        int initialCoordinateY = Integer.parseInt(initialInput[1]);
         this.direction = initialInput[2];
-        this.finalCordinateY = initialCordinateY;
-        this.finalCordinateX = initialCordinateX;
+        this.finalCoordinateY = initialCoordinateY;
+        this.finalCoordinateX = initialCoordinateX;
     }
 
     public String getPosFinal() {
@@ -26,6 +29,12 @@ public class Rover {
         this.posFinal = posFinal;
     }
 
+    /**
+     * Método para locomover o Rover pelo plateau.
+     *
+     * @param comando String contendo comando de orientação e movimentação do Rover.
+     * @return String contendo a posição e orientação final do Rover.
+     */
     public String moveRover(String comando) {
         int index = 0;
 
@@ -68,33 +77,31 @@ public class Rover {
                 case "M":
                     switch (direction) {
                         case "N":
-                            finalCordinateY++;
+                            finalCoordinateY++;
                             break;
                         case "S":
-                            finalCordinateY--;
+                            finalCoordinateY--;
                             break;
                         case "E":
-                            finalCordinateX++;
+                            finalCoordinateX++;
                             break;
                         case "W":
-                            finalCordinateX--;
+                            finalCoordinateX--;
                             break;
                     }
 
                     break;
             }
         }
-
         defineFinalPosition();
-
         return posFinal;
     }
 
     private void defineFinalPosition() {
         StringBuilder sb = new StringBuilder();
-        sb.append(finalCordinateX);
+        sb.append(finalCoordinateX);
         sb.append(" ");
-        sb.append(finalCordinateY);
+        sb.append(finalCoordinateY);
         sb.append(" ");
         sb.append(direction);
         setPosFinal(sb.toString());
