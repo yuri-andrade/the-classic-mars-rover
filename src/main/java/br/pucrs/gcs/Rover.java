@@ -78,19 +78,15 @@ public class Rover {
                     switch (direction) {
                         case "N":
                             finalCoordinateY++;
-
                             break;
                         case "S":
                             finalCoordinateY--;
-
                             break;
                         case "E":
                             finalCoordinateX++;
-
                             break;
                         case "W":
                             finalCoordinateX--;
-
                             break;
                     }
 
