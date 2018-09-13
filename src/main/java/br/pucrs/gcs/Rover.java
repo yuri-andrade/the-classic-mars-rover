@@ -10,13 +10,13 @@ public class Rover {
     private String posFinal;
     private int finalCoordinateX;
     private int finalCoordinateY;
-    private String direction;
+    private CompassEnum directionEnum;
 
-    public Rover(String posInicial) {
+    public Rover(final String posInicial) {
         String[] initialInput = posInicial.split("\\s+");
         int initialCoordinateX = Integer.parseInt(initialInput[0]);
         int initialCoordinateY = Integer.parseInt(initialInput[1]);
-        this.direction = initialInput[2];
+        this.directionEnum = CompassEnum.valueOf(initialInput[2]);
         this.finalCoordinateY = initialCoordinateY;
         this.finalCoordinateX = initialCoordinateX;
     }
@@ -25,7 +25,7 @@ public class Rover {
         return posFinal;
     }
 
-    public void setPosFinal(String posFinal) {
+    public void setPosFinal(final String posFinal) {
         this.posFinal = posFinal;
     }
 
@@ -35,57 +35,42 @@ public class Rover {
      * @param comando String contendo comando de orientação e movimentação do Rover.
      * @return String contendo a posição e orientação final do Rover.
      */
-    public String moveRover(String comando) {
-        int index = 0;
-
-        if (direction.equals(Compass.getInstance().getCompass()[0])) {
-            direction = Compass.getInstance().getCompass()[0];
-            index = 0;
-        } else if (direction.equals(Compass.getInstance().getCompass()[1])) {
-            direction = Compass.getInstance().getCompass()[1];
-            index = 1;
-        } else if (direction.equals(Compass.getInstance().getCompass()[2])) {
-            direction = Compass.getInstance().getCompass()[2];
-            index = 2;
-        } else if (direction.equals(Compass.getInstance().getCompass()[3])) {
-            direction = Compass.getInstance().getCompass()[3];
-            index = 3;
-        }
-
+    public String moveRover(final String comando) {
         for (int i = 0; i < comando.length(); i++) {
             String aux = String.valueOf(comando.charAt(i));
-
             switch (aux) {
+
                 case "L":
-                    if (index == 0) {
-                        direction = Compass.getInstance().getCompass()[3];
-                        index = 3;
+                    if (directionEnum.equals(CompassEnum.N)) {
+                        directionEnum = CompassEnum.W;
                     } else {
-                        direction = Compass.getInstance().getCompass()[index - 1];
-                        index--;
+                        directionEnum = directionEnum.previous();
                     }
                     break;
+
                 case "R":
-                    if (index == 3) {
-                        direction = Compass.getInstance().getCompass()[0];
-                        index = 0;
+                    if (directionEnum.equals(CompassEnum.W)) {
+                        directionEnum = CompassEnum.N;
                     } else {
-                        direction = Compass.getInstance().getCompass()[index + 1];
-                        index++;
+                        directionEnum = directionEnum.next();
                     }
                     break;
+
                 case "M":
-                    switch (direction) {
-                        case "N":
+                    switch (directionEnum.getLabel()) {
+                        case "North":
                             finalCoordinateY++;
                             break;
-                        case "S":
+
+                        case "South":
                             finalCoordinateY--;
                             break;
-                        case "E":
+
+                        case "East":
                             finalCoordinateX++;
                             break;
-                        case "W":
+
+                        case "West":
                             finalCoordinateX--;
                             break;
                     }
@@ -98,12 +83,12 @@ public class Rover {
     }
 
     private void defineFinalPosition() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(finalCoordinateX);
-        sb.append(" ");
-        sb.append(finalCoordinateY);
-        sb.append(" ");
-        sb.append(direction);
-        setPosFinal(sb.toString());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append(finalCoordinateX)
+                .append(" ").append(finalCoordinateY)
+                .append(" ")
+                .append(directionEnum.toString());
+        setPosFinal(stringBuilder.toString());
     }
 }

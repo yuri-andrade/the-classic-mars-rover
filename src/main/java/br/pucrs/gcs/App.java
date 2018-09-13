@@ -19,6 +19,9 @@ public class App {
     static int landedRovers;
     static String mov;
 
+    /**
+     * Método Main.
+     */
     public static void main(String[] args) {
         System.out.println("Insira as dimens�es: ");
         dimension = in.nextLine();
