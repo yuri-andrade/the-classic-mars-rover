@@ -41,19 +41,11 @@ public class Rover {
             switch (aux) {
 
                 case "L":
-                    if (directionEnum.equals(CompassEnum.N)) {
-                        directionEnum = CompassEnum.W;
-                    } else {
-                        directionEnum = directionEnum.previous();
-                    }
+                    directionEnum = directionEnum.getPrevious();
                     break;
 
                 case "R":
-                    if (directionEnum.equals(CompassEnum.W)) {
-                        directionEnum = CompassEnum.N;
-                    } else {
-                        directionEnum = directionEnum.next();
-                    }
+                    directionEnum = directionEnum.getNext();
                     break;
 
                 case "M":
@@ -74,7 +66,6 @@ public class Rover {
                             finalCoordinateX--;
                             break;
                     }
-
                     break;
             }
         }
@@ -86,7 +77,8 @@ public class Rover {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append(finalCoordinateX)
-                .append(" ").append(finalCoordinateY)
+                .append(" ")
+                .append(finalCoordinateY)
                 .append(" ")
                 .append(directionEnum.toString());
         setPosFinal(stringBuilder.toString());
