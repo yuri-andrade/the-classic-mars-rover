@@ -29,12 +29,13 @@ public enum CompassEnum {
     }
 
     /**
-     * Método para retornar o Enum correspondente ao proximo valor.
+     * Método para retornar o Enum correspondente ao próximo valor.
      *
      * @return próximo CompassEnum da lista.
      */
     public CompassEnum next() {
-        return values()[ordinal() + 1];
+        CompassEnum next = CompassEnum.W.equals(values()[ordinal()]) ? CompassEnum.N : values()[ordinal() + 1];
+        return next;
     }
 
     /**
@@ -43,6 +44,7 @@ public enum CompassEnum {
      * @return CompassEnum anterior da lista.
      */
     public CompassEnum previous() {
-        return values()[ordinal() - 1];
+        CompassEnum previous = CompassEnum.N.equals(values()[ordinal()]) ? CompassEnum.W : values()[ordinal() - 1];
+        return previous;
     }
 }
