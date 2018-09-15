@@ -1,3 +1,0 @@
-*****************
-Crie nesta pasta a suas classes da solução para o Mars Rover.
-*****************

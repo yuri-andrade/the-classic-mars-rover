@@ -1,3 +1,0 @@
-***************
-Crie aqui a suas classes de teste.
-***************
